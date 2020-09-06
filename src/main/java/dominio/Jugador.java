@@ -1,10 +1,11 @@
-package db;
+package dominio;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.procedure.spi.ParameterRegistrationImplementor;
+
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "jugadores")
@@ -19,6 +20,15 @@ public class Jugador {
     private String domicilio;
     private LocalDate fechaNacimiento;
 
+    @OneToOne
+    private Paleta paleta;
+
+    @OneToMany
+    private List<Participacion> participaciones = new ArrayList<>();
+
+    public Jugador(){
+
+    }
 
     public Jugador(String nombre, String apellido, String domicilio, LocalDate fechaNacimiento) {
         this.nombre = nombre;
@@ -27,4 +37,16 @@ public class Jugador {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public void setPaleta(Paleta paleta) {
+        this.paleta = paleta;
+    }
+
+    public void agregarParticipacion(Partido partido, Paleta paleta) {
+        Participacion participacion = new Participacion(this, partido, paleta);
+        participaciones.add(participacion);
+    }
+
+    public void eliminarParticipacion(Participacion participacion) {
+        participaciones.remove(participacion);
+    }
 }

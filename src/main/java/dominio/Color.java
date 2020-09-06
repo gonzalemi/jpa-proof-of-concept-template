@@ -1,30 +1,26 @@
 package dominio;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "jugadores")
-public class Jugador {
+@Table(name = "colores")
+public class Color {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private String nombre;
-    private String apellido;
-    private String domicilio;
-    private LocalDate fechaNacimiento;
+    private String descripcion;
 
-    @OneToOne
-    private Paleta paleta;
+    public Color(){
 
+    }
 
-    public Jugador(String nombre, String apellido, String domicilio, LocalDate fechaNacimiento) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.domicilio = domicilio;
-        this.fechaNacimiento = fechaNacimiento;
+    public Color(String descripcion) {
+        this.descripcion = descripcion;
     }
 
 }

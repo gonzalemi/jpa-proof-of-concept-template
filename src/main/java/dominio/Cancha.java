@@ -1,47 +1,32 @@
 package dominio;
 
-import org.hibernate.procedure.spi.ParameterRegistrationImplementor;
-
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
 
 @Entity
-@Table(name = "jugadores")
-public class Jugador {
+@Table(name = "canchas")
+public class Cancha {
 
     @Id
     @GeneratedValue
     private Long id;
 
     private String nombre;
-    private String apellido;
-    private String domicilio;
-    private LocalDate fechaNacimiento;
+    private Boolean estaIluminada;
 
     @OneToOne
-    private Paleta paleta;
+    private Color color;
 
-    @OneToMany
-    private List<Participacion> participaciones;
+    public Cancha(){
 
-    public Jugador(String nombre, String apellido, String domicilio, LocalDate fechaNacimiento) {
+    }
+
+    public Cancha(String nombre, Boolean estaIluminada, Color color) {
         this.nombre = nombre;
-        this.apellido = apellido;
-        this.domicilio = domicilio;
-        this.fechaNacimiento = fechaNacimiento;
+        this.estaIluminada = estaIluminada;
+        this.setColor(color);
     }
 
-    public void setPaleta(Paleta paleta) {
-        this.paleta = paleta;
-    }
-
-    public void agregarParticipacion(Partido partido, Paleta paleta) {
-        Participacion participacion = new Participacion(this, partido, paleta);
-        participaciones.add(participacion);
-    }
-
-    public void eliminarParticipacion(Participacion participacion) {
-        participaciones.remove(participacion);
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

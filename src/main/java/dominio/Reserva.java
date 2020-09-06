@@ -2,26 +2,32 @@ package dominio;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
-@Table(name = "canchas")
-public class Cancha {
+@Table(name = "reservas")
+public class Reserva {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private String nombre;
-    private Boolean estaIluminada;
+    private LocalDate inicioPartido;
+    private LocalDate finPartido;
 
     @OneToOne
-    private Color color;
+    private Cancha cancha;
 
-    public Cancha(String nombre, Boolean estaIluminada, Color color) {
-        this.nombre = nombre;
-        this.estaIluminada = estaIluminada;
-        this.color = color;
+    @OneToOne
+    private Jugador responsable;
+
+    public Reserva(){
+
+    }
+
+    public Reserva(LocalDate inicioPartido, LocalDate finPartido, Cancha cancha) {
+        this.inicioPartido = inicioPartido;
+        this.finPartido = finPartido;
+        this.cancha = cancha;
     }
 
 }

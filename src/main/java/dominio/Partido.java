@@ -4,30 +4,33 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "jugadores")
-public class Jugador {
+@Table(name = "partidos")
+public class Partido {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private String nombre;
-    private String apellido;
-    private String domicilio;
-    private LocalDate fechaNacimiento;
+    @OneToOne
+    Color colorCancha;
 
     @OneToOne
-    private Paleta paleta;
+    Cancha cancha;
 
+    @OneToOne
+    //@Column(nullable = true)
+    private Reserva reserva;
 
-    public Jugador(String nombre, String apellido, String domicilio, LocalDate fechaNacimiento) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.domicilio = domicilio;
-        this.fechaNacimiento = fechaNacimiento;
+    public Partido(){
+
     }
 
-    public void setPaleta(Paleta paleta) {
-        this.paleta = paleta;
+    public Partido(Color colorCancha, Cancha cancha) {
+        this.colorCancha = colorCancha;
+        this.cancha = cancha;
+    }
+
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
     }
 }
